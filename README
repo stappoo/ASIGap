@@ -19,6 +19,8 @@ PhoneGap.exec("ASIGap.submitForm", "http://myserver/upload_script", GetFunctionN
 	GetFunctionName(failureCallback), "AddPostValue", "ValueName", "data to post",
 	"AddFile", "FileName", "path_to_file.ext");
 
+include "SetUsername" and "SetPassword" with one additional argument each to enable http basic authentication.
+
 Repeat "AddPostValue" and "AddFile" with two additional arguments each, as many times as 
 necessary to post all of your data to the server.  
 
