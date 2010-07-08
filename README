@@ -1,0 +1,53 @@
+ASIGap provides a (Very Simplistic) wrapper around a portion of the ASIHTTPRequest library to enable PhoneGap posting of binary files from iPhone.
+
+Thanks to Ben Copsey of All-Seeing Interactive (http://allseeing-i.com/ASIHTTPRequest/) for ASIHTTPRequest.
+Thanks to Nitobi (http://nitobi.com/) for PhoneGap
+
+Installation:
+
+1 Start with a working PhoneGap installation in Xcode
+2 Download the HTTPRequest tarball from (http://github.com/pokeb/asi-http-request/tarball/master)
+3 Extract the HTTPRequest files into the Plugins directory
+4 Configure HTTPRequest in your project per the documentation
+5 cd to Plugins
+6 clone ASIGap.git into ASIGap
+7 Add ASIGap.h and ASIGap.m to your project (Right-click on Plugins -> Add -> Existing Files...)
+
+You can now use Javascript such as below to submit a file and value for upload to a server.
+
+PhoneGap.exec("ASIGap.submitForm", "http://myserver/upload_script", GetFunctionName(successCallback), 
+	GetFunctionName(failureCallback), "AddPostValue", "ValueName", "data to post",
+	"AddFile", "FileName", "path_to_file.ext");
+
+Repeat "AddPostValue" and "AddFile" with two additional arguments each, as many times as 
+necessary to post all of your data to the server.  
+
+Define the success callback function to accept the response text from the server as an argument.
+
+e.g.  function successCallback(response)
+			{
+				alert(response);
+			}
+
+Define the failure callback function to accept the errorCode (integer) and errorMessage(string) as arguments.
+
+e.g.  function failureCallback(errorCode, errorMessage)
+			{
+				if (errorCode != 404)
+				{
+					alert(errorMessage);
+				}
+				else
+				{
+					alert('Nothing to see here, move along');
+				}
+			}
+
+
+NOTE: Your server and upload_script must exist and must know what to do with the posted data.
+NOTE: submitForm uses startSynchronous internally and does not respond until the net request 
+completes.  BUT, the response information is not returned by submitForm.  You are required to 
+define the success and failure callbacks in order to receive response data or error information.
+
+
+
